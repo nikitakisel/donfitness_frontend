@@ -14,7 +14,9 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-image: url('./img/donfitness_image.png'); 
+  background-size: cover; 
+  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +24,31 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-header div button {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: inline-block;
+  line-height: 1;
+  color: white;
+  font-size: 20px;
+}
+
+.App-header div button:after {
+    display: block;
+    content: ""; 
+    height: 2px;
+    width: 0;
+    background-color: white;
+    transition: width 0.4s ease-in-out;
+}
+
+.App-header div button:hover:after,
+.App-header div li button:focus:after {
+    width: 100%;
 }
 
 .App-link {
@@ -35,4 +62,251 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+.Auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50vh;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.Auth-form {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 32px;
+  margin-top: 30px;
+}
+
+.Auth-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.form-control {
+  padding: 12px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #495057;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.d-grid {
+  display: grid;
+}
+
+.gap-2 {
+  grid-gap: 8px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-center p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.Dashboard-nav {
+  width: 100%;
+  height: 12%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Dashboard-nav-list {
+    width: 50%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 30px;
+}
+
+.Dashboard-nav-list li button {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    display: inline-block;
+    line-height: 1;
+    color: rgb(44, 44, 44);
+    font-size: 20px;
+}
+
+.Dashboard-nav-list li button:after {
+    display: block;
+    content: ""; 
+    height: 2px;
+    width: 0;
+    background-color: rgb(44, 44, 44);
+    transition: width 0.4s ease-in-out;
+}
+
+.Dashboard-nav-list li button:hover:after,
+.Dashboard-nav-list li button:focus:after {
+    width: 100%;
+}
+
+.Training-wrapper {
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.Training-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.Training-item {
+  width: 30%;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 25px;
+  margin-bottom: 40px;
+}
+
+.Training-fields {
+  display: block;
+  width: 30px;
+  height: 100%;
+  margin-right: 30px;
+  margin-left: 20px;
+}
+
+.Training-fields-my-trainings {
+  background: rgb(251, 91, 91);
+}
+
+.Training-fields-all-trainings {
+  background: rgb(91, 179, 251);
+}
+
+.Training-info {
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
+  padding-bottom: 20px;
+}
+
+.Training-info p {
+  padding: initial;
+}
+
+.Training-info button {
+  border: none;
+  width: 200px;
+  height: 30px;
+  font-size: 18px;
+  color: white;
+  background-color:rgb(76, 76, 76);
+  border-radius: 7px;
+}
+
+
+
+.Coach-wrapper {
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.Coach-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.Coach-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 40px;
+}
+
+.Coach-image {
+  background-image: url('./img/unknown_photo.png'); 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  margin-right: 25px;
+}
+
+.Coach-info {
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
 }

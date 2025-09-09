@@ -1,7 +1,10 @@
-import API_BASE_URL from '../App.js';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import '../App.css';
+
+const API_BASE_URL = 'http://localhost:8000';
+
 
 function MyTrainings({ token }) {
   const [myTrainings, setMyTrainings] = useState([]);
@@ -10,6 +13,7 @@ function MyTrainings({ token }) {
   useEffect(() => {
     const fetchMyTrainings = async () => {
       try {
+        console.log(API_BASE_URL);
         const response = await axios.get(`${API_BASE_URL}/training_sessions/enrolled`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -62,16 +66,24 @@ function MyTrainings({ token }) {
 
   return (
     <div>
-      <h2>My Trainings</h2>
+      <h2>Мои тренировки</h2>
       {myTrainings.length > 0 ? (
-        <ul className="Training-list">
-          {myTrainings.map((training) => (
-            <li key={training.id} className="Training-item">
-              {training.training_type} with {training.coach_name} {training.coach_surname} - {new Date(training.start_time).toLocaleString()} ({training.duration} minutes) - Remaining places: {training.remaining_places}/{training.max_capacity}
-              <button onClick={() => handleCancelEnrollment(training.id)}>Cancel Enrollment</button>
-            </li>
-          ))}
-        </ul>
+        <div className="Training-wrapper">
+          <div className="Training-list">
+            {myTrainings.map((training) => (
+              <div key={training.id} className="Training-item">
+                <div className="Training-fields Training-fields-my-trainings"></div>
+                <div className="Training-info">
+                  <h3>{training.training_type}</h3>
+                  <p>{training.coach_name} {training.coach_surname}</p>
+                  <p>{new Date(training.start_time).toLocaleString()} ({training.duration} минут)</p>
+                  <p>Свободно мест: {training.remaining_places} из {training.max_capacity}</p>
+                  <button onClick={() => handleCancelEnrollment(training.id)}>Отменить запись</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : (
         <p>You are not currently enrolled in any trainings.</p>
       )}

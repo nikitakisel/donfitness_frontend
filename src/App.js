@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
 import './App.css';
-import Register from './components/Register';
+
 import Login from './components/Login';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
 const API_BASE_URL = 'http://localhost:8000';
@@ -40,7 +42,7 @@ function App() {
           <h1>DonFitness</h1>
           {token ? (
             <div>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout}>Выход</button>
             </div>
           ) : null}
         </header>

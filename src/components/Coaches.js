@@ -1,7 +1,10 @@
-import API_BASE_URL from '../App.js';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import '../App.css';
+
+const API_BASE_URL = 'http://localhost:8000';
+
 
 function Coaches({ token }) {
   const [coaches, setCoaches] = useState([]);
@@ -9,7 +12,7 @@ function Coaches({ token }) {
   useEffect(() => {
     const fetchCoaches = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/coaches`, {
+        const response = await axios.get(`${API_BASE_URL}/coaches/all`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCoaches(response.data);
@@ -24,18 +27,25 @@ function Coaches({ token }) {
 
   return (
     <div>
-      <h2>Coaches</h2>
+      <h2>Тренеры</h2>
       {coaches.length > 0 ? (
-        <ul className="Coach-list">
-          {coaches.map((coach) => (
-            <li key={coach.id} className="Coach-item">
-              <h3>{coach.name} {coach.surname}</h3>
-              <p>Speciality: {coach.speciality}</p>
-              <p>Qualification: {coach.qualification}</p>
-              <p>Extra Info: {coach.extra_info}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="Coach-wrapper">
+          <div className="Coach-list">
+            {coaches.map((coach) => (
+              <div key={coach.id} className="Coach-item">
+                <div className="Coach-image"></div>
+                <div className="Coach-info">
+                  <h3>{coach.name} {coach.surname}</h3>
+                <p>{coach.speciality}</p>
+                <p>{coach.qualification}</p>
+                <p>Примечание: {coach.extra_info}</p>
+                </div>
+                <div></div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
       ) : (
         <p>No coaches available.</p>
       )}

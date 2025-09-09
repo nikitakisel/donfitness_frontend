@@ -1,7 +1,10 @@
-import API_BASE_URL from '../App.js';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import '../App.css';
+
+const API_BASE_URL = 'http://localhost:8000';
+
 
 function AllTrainings({ token }) {
   const [allTrainings, setAllTrainings] = useState([]);
@@ -65,16 +68,25 @@ function AllTrainings({ token }) {
 
   return (
     <div>
-      <h2>All Trainings</h2>
+      <h2>Все тренировки</h2>
       {allTrainings.length > 0 ? (
-        <ul className="Training-list">
-          {allTrainings.map((training) => (
-            <li key={training.id} className="Training-item">
-              {training.training_type} with {training.coach_name} {training.coach_surname} - {new Date(training.start_time).toLocaleString()} ({training.duration} minutes) - Remaining places: {training.remaining_places}/{training.max_capacity}
-              <button onClick={() => handleEnroll(training.id)}>Enroll</button>
-            </li>
-          ))}
-        </ul>
+
+        <div className="Training-wrapper">
+          <div className="Training-list">
+            {allTrainings.map((training) => (
+              <div key={training.id} className="Training-item">
+                <div className="Training-fields Training-fields-all-trainings"></div>
+                <div className="Training-info">
+                  <h3>{training.training_type}</h3>
+                  <p>{training.coach_name} {training.coach_surname}</p>
+                  <p>{new Date(training.start_time).toLocaleString()} ({training.duration} минут)</p>
+                  <p>Свободно мест: {training.remaining_places} из {training.max_capacity}</p>
+                  <button onClick={() => handleEnroll(training.id)}>Записаться</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : (
         <p>No trainings available.</p>
       )}

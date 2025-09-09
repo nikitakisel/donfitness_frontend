@@ -1,9 +1,9 @@
-import API_BASE_URL from '../App.js';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
+import '../App.css';
 
+const API_BASE_URL = 'http://localhost:8000';
 
 function Register({ setAuthToken }) {
   const [username, setUsername] = useState('');
@@ -37,74 +37,74 @@ function Register({ setAuthToken }) {
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Register</h3>
+          <h3 className="Auth-form-title">Регистрация</h3>
           <div className="form-group mt-3">
-            <label>Username</label>
+            <label>Имя пользователя</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Enter username"
+              placeholder="Введите имя пользователя"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
-            <label>Password</label>
+            <label>Пароль</label>
             <input
               type="password"
               className="form-control mt-1"
-              placeholder="Enter password"
+              placeholder="Введите пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <div className="form-group mt-3">
-            <label>Surname</label>
+            <label>Фамилия</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Enter surname"
+              placeholder="Введите фамилию"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
-            <label>Name</label>
+            <label>Имя</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Enter name"
+              placeholder="Введите имя"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
-            <label>Birthdate</label>
+            <label>Дата рождения</label>
             <input
               type="datetime-local"
               className="form-control mt-1"
-              placeholder="Enter birthdate"
+              placeholder="Введите дату рождения"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
-            <label>Email</label>
+            <label>Почта</label>
             <input
               type="email"
               className="form-control mt-1"
-              placeholder="Enter email"
+              placeholder="Введите email почту"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
-            <label>Phone</label>
+            <label>Телефон</label>
             <input
               type="tel"
               className="form-control mt-1"
-              placeholder="Enter phone number"
+              placeholder="Введите номер телефона"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
@@ -112,11 +112,11 @@ function Register({ setAuthToken }) {
 
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">
-              Submit
+              Зарегистрироваться
             </button>
           </div>
           <p className="text-center mt-2">
-            Already registered? <Link to="/login">Login</Link>
+            Уже зарегистрированы? <Link to="/login">Вход</Link>
           </p>
         </div>
       </form>
