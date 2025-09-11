@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
@@ -6,15 +5,18 @@ import './App.css';
 
 import Login from './components/Login';
 import Register from './components/Register';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/user/Dashboard';
+import AdminPanel from './components/admin/AdminPanel';
 
 const API_BASE_URL = 'http://localhost:8000';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [username, setUsername] = useState(null);
 
-  const setAuthToken = (newToken) => {
+  const setAuthToken = async (newToken, newUsername) => {
     setToken(newToken);
+    setUsername(newUsername);
     if (newToken) {
       localStorage.setItem('token', newToken);
       axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
@@ -53,7 +55,7 @@ function App() {
             path="/"
             element={
               token ? (
-                <Dashboard token={token} />
+                username == 'administrator' ? <AdminPanel token={token} /> : <Dashboard token={token} />
               ) : (
                 <Navigate to="/login" replace />
               )

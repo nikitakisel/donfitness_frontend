@@ -16,12 +16,18 @@ function Login({ setAuthToken }) {
       const formData = new URLSearchParams();
       formData.append('username', username);
       formData.append('password', password);
-      const response = await axios.post(`${API_BASE_URL}/token`, formData, {
+      const tokenResponse = await axios.post(`${API_BASE_URL}/token`, formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      setAuthToken(response.data.access_token);
+      const userMeResponse = await axios.get(`${API_BASE_URL}/users/me`,
+        {
+          headers: { Authorization: `Bearer ${tokenResponse.data.access_token}` },
+        }
+      );
+      
+      setAuthToken(tokenResponse.data.access_token, userMeResponse.data.username);
       navigate("/");
     } catch (error) {
       console.error('Login failed:', error);

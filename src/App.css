@@ -214,6 +214,13 @@ a:hover {
     width: 100%;
 }
 
+
+
+.Chapter-title {
+  display: block;
+  margin-bottom: 50px;
+}
+
 .Training-wrapper {
   width: 100%;
   padding-bottom: 20px;
@@ -229,19 +236,21 @@ a:hover {
 
 .Training-item {
   width: 30%;
-  margin-right: 30px;
+  margin-right: 40px;
   display: flex;
   flex-direction: row;
   border-radius: 25px;
   margin-bottom: 40px;
+  box-shadow: 0 0 3px #ccc;
 }
 
 .Training-fields {
   display: block;
-  width: 30px;
+  width: 40px;
   height: 100%;
   margin-right: 30px;
-  margin-left: 20px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
 
 .Training-fields-my-trainings {
@@ -284,6 +293,7 @@ a:hover {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
   width: 90%;
   margin: 0 auto;
 }
@@ -292,8 +302,10 @@ a:hover {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 50%;
+  width: 47%;
   margin-bottom: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 3px #ccc;
 }
 
 .Coach-image {
@@ -302,11 +314,124 @@ a:hover {
   background-repeat: no-repeat;
   width: 100px;
   height: 100px;
-  margin-right: 25px;
+  margin-left: 20px;
+  margin-right: 35px;
 }
 
 .Coach-info {
   display: flex;
   flex-direction: column;
   align-items: first baseline;
+}
+
+
+
+.Select-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.Select-combobox {
+  appearance: none;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #333;
+  width: 250px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+.Select-combobox:hover,
+.Select-combobox:focus {
+  border-color: #aaa;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Select-combobox option {
+  font-size: 16px;
+  color: #333;
+  padding: 8px 16px;
+}
+
+.Select-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Select-button:hover {
+  background-color: #3e8e41;
+}
+
+.Select-button:focus {
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Dark Mode adjustments */
+body.dark .Select-combobox {
+  background-color: #333;
+  color: #eee;
+  border-color: #555;
+}
+
+body.dark .Select-combobox option {
+  color: #eee;
+  background-color: #333;
+}
+
+body.dark .Select-button {
+  background-color: #2e7d32;
+}
+
+body.dark .Select-button:hover {
+  background-color: #1b5e20;
+}
+
+
+
+.Admin-training-list {
+  justify-content: center;
+}
+
+.Admin-training-item {
+  width: 43%;
+  padding-left: 30px;
+}
+
+.Admin-training-item button {
+  width: 30px;
+  background-color: #ff0606;
+  margin-right: 10px;
+}
+
+.Admin-training-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+  align-items: center;
 }
