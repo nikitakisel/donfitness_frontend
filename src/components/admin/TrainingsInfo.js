@@ -78,13 +78,7 @@ function TrainingsInfo({ token }) {
         }
       );
 
-      const response = await axios.get(
-        `${API_BASE_URL}/training_sessions/residents`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setTrainingsInfo(response.data);
+      handleTrainingFilter();
       alert("Enrollment cancelled successfully!");
     } catch (error) {
       console.error("Error cancelling enrollment:", error);
@@ -218,7 +212,7 @@ function TrainingsInfo({ token }) {
                       </button>
                       <p>
                         {resident.surname} {resident.name} (
-                        {resident.birthdate.toLocaleString()})
+                        {new Date(resident.birthdate).toLocaleString()})
                       </p>
                     </div>
                   ))}
