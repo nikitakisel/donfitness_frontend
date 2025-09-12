@@ -17,7 +17,7 @@
   background-image: url('./img/donfitness_image.png'); 
   background-size: cover; 
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -434,4 +434,63 @@ body.dark .Select-button:hover {
   flex-wrap: nowrap;
   justify-content: left;
   align-items: center;
+}
+
+
+.News-wrapperr {
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.News-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.News-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 47%;
+  margin-bottom: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 3px #ccc;
+}
+
+.News-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
+  padding-left: 60px;
+  margin-bottom: 20px;
+}
+
+.News-item button {
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  color: white;
+  border-radius: 7px;
+  background-color: #ff0606;
+  margin-right: 10px;
+}
+
+.News-photo-div {
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-bottom: 20px;
+}
+
+.News-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }

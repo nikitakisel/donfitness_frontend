@@ -14,6 +14,7 @@ import TrainingsInfo from "./TrainingsInfo";
 import AddCoach from "./AddCoach";
 import AddTrainingType from "./AddTrainingType";
 import AddTrainingSession from "./AddTrainingSession";
+import AddPost from "./AddPost"
 
 function AdminPanel({ token }) {
   const [activeTab, setActiveTab] = useState("trainingsInfo");
@@ -34,7 +35,9 @@ function AdminPanel({ token }) {
             </button>
           </li>
           <li className={activeTab === "addCoach" ? "active" : ""}>
-            <button onClick={() => setActiveTab("addCoach")}>+ Тренер</button>
+            <button onClick={() => setActiveTab("addCoach")}>
+              + Тренер
+            </button>
           </li>
           <li className={activeTab === "addTrainingType" ? "active" : ""}>
             <button onClick={() => setActiveTab("addTrainingType")}>
@@ -46,15 +49,19 @@ function AdminPanel({ token }) {
               + Тренировка
             </button>
           </li>
+          <li className={activeTab === "addPost" ? "active" : ""}>
+            <button onClick={() => setActiveTab("addPost")}>
+              + Новость
+            </button>
+          </li>
         </ul>
       </nav>
       <div className="Dashboard-content">
         {activeTab === "trainingsInfo" && <TrainingsInfo token={token} />}
         {activeTab === "addCoach" && <AddCoach token={token} />}
         {activeTab === "addTrainingType" && <AddTrainingType token={token} />}
-        {activeTab === "addTrainingSession" && (
-          <AddTrainingSession token={token} />
-        )}
+        {activeTab === "addTrainingSession" && <AddTrainingSession token={token} />}
+        {activeTab === "addPost" && <AddPost token={token} />}
       </div>
     </div>
   );

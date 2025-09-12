@@ -106,7 +106,7 @@ function TrainingsInfo({ token }) {
       );
       alert("Training deleting cancelled successfully!");
     } catch (error) {
-      console.error("Error cancelling Training deleting:", error);
+      console.error("Error cancelling training deleting:", error);
       alert("Failed to delete training. Check the console for details.");
     }
   };
@@ -183,7 +183,7 @@ function TrainingsInfo({ token }) {
               >
                 <div className="Training-info">
                   <div className="Admin-training-title">
-                    <button onClick={() => handleDeleteTraining(training.id)}>
+                    <button className="Delete-button" onClick={() => handleDeleteTraining(training.id)}>
                       X
                     </button>
                     <h3>{training.training_type}</h3>

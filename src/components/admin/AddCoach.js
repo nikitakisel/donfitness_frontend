@@ -35,6 +35,11 @@ function AddCoach({ token }) {
         }
       );
       alert("Данные успешно обновлены!");
+      setSurname("");
+      setName("");
+      setSpeciality("");
+      setQualification("");
+      setExtraInfo("");
     } catch (error) {
       console.error("Add coach failed:", error);
       alert("Add coach failed. Check the console for details.");
@@ -70,7 +75,7 @@ function AddCoach({ token }) {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Спеицализация</label>
+              <label>Специализация</label>
               <input
                 type="text"
                 className="form-control mt-1"

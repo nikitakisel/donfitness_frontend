@@ -38,6 +38,9 @@ function AddTrainingSession({ token }) {
         }
       );
       alert("Данные успешно обновлены!");
+      setStartTime("");
+      setDuration("");
+      setMaxCapacity("");
     } catch (error) {
       console.error("Add training session failed:", error);
       alert("Add training session failed. Check the console for details.");
@@ -92,7 +95,7 @@ function AddTrainingSession({ token }) {
         <form className="Auth-form" onSubmit={handleAddTrainingSession}>
           <div className="Auth-form-content">
             <select
-              className="Select-training-type-combobox"
+              className="Select-combobox"
               onChange={handleTrainingTypeChange}
               value={trainingTypeId || "all"}
             >
@@ -105,7 +108,7 @@ function AddTrainingSession({ token }) {
             </select>
 
             <select
-              className="Select-training-type-combobox"
+              className="Select-combobox"
               onChange={handleCoachChange}
               value={coachId || "all"}
             >

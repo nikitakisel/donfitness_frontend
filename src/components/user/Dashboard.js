@@ -10,23 +10,25 @@ import {
 } from "react-router-dom";
 import "../../App.css";
 
+import News from "./News";
 import AllTrainings from "./AllTrainings";
 import Coaches from "./Coaches";
 import MyTrainings from "./MyTrainings";
 import MyProfile from "./MyProfile";
 
 function Dashboard({ token }) {
-  const [activeTab, setActiveTab] = useState("myTrainings");
+  const [activeTab, setActiveTab] = useState("news");
 
   return (
     <div className="Dashboard">
       <nav className="Dashboard-nav">
         <ul className="Dashboard-nav-list">
-          <li
-            className={
-              activeTab === "myTrainings" ? "active" : "Dashboard-nav-list-item"
-            }
-          >
+          <li className={activeTab === "news" ? "active" : "Dashboard-nav-list-item"}>
+            <button onClick={() => setActiveTab("news")}>
+              Новости
+            </button>
+          </li>
+          <li className={activeTab === "myTrainings" ? "active" : "Dashboard-nav-list-item"}>
             <button onClick={() => setActiveTab("myTrainings")}>
               Мои тренировки
             </button>
@@ -47,6 +49,7 @@ function Dashboard({ token }) {
         </ul>
       </nav>
       <div className="Dashboard-content">
+        {activeTab === "news" && <News token={token} />}
         {activeTab === "myTrainings" && <MyTrainings token={token} />}
         {activeTab === "allTrainings" && <AllTrainings token={token} />}
         {activeTab === "coaches" && <Coaches token={token} />}

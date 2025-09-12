@@ -29,6 +29,8 @@ function AddTrainingType({ token }) {
         }
       );
       alert("Данные успешно обновлены!");
+      setTrainingName("");
+      setDescription("");
     } catch (error) {
       console.error("Add coach failed:", error);
       alert("Add coach failed. Check the console for details.");

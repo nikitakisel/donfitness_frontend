@@ -11,6 +11,7 @@ import AdminPanel from './components/admin/AdminPanel';
 const API_BASE_URL = 'http://localhost:8000';
 
 function App() {
+  const admins = ['administrator'];
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [username, setUsername] = useState(null);
 
@@ -55,7 +56,7 @@ function App() {
             path="/"
             element={
               token ? (
-                username == 'administrator' ? <AdminPanel token={token} /> : <Dashboard token={token} />
+                admins.indexOf(username) === -1 ? <Dashboard token={token} /> : <AdminPanel token={token} />
               ) : (
                 <Navigate to="/login" replace />
               )
