@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
 import "../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -14,6 +7,7 @@ const API_BASE_URL = "http://localhost:8000";
 function MyTrainings({ token }) {
   const [myTrainings, setMyTrainings] = useState([]);
   const [residentId, setResidentId] = useState(null);
+  const [upcomingTrainingsFilter, setUpcomingTrainingsFilter] = useState(0);
 
   useEffect(() => {
     const fetchMyTrainings = async () => {
@@ -80,9 +74,60 @@ function MyTrainings({ token }) {
     }
   };
 
+  const handleTrainingFilter = async () => {
+    try {
+      console.log(API_BASE_URL);
+      const response = await axios.get(
+        `${API_BASE_URL}/training_sessions/enrolled`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      var trainingList = response.data;
+      setMyTrainings(
+        upcomingTrainingsFilter == 1
+          ? trainingList.filter(
+              (training) => new Date(training.start_time) > new Date()
+            )
+          : upcomingTrainingsFilter == 2
+            ? trainingList.filter(
+                (training) => new Date(training.start_time) <= new Date()
+              )
+            : trainingList
+      );
+    } catch (error) {
+      console.error("Error fetching my trainings:", error);
+      alert("Failed to fetch your trainings. Check the console for details.");
+    }
+  };
+
+  const handleTrainingFilterChange = (event) => {
+    const selectedValue = event.target.value;
+    setUpcomingTrainingsFilter(selectedValue === "all" ? 0 : selectedValue);
+  };
+
   return (
     <div>
       <h2 className="Chapter-title">Мои тренировки</h2>
+      <div className="Select-wrapper">
+        <select
+          className="Select-combobox"
+          onChange={handleTrainingFilterChange}
+          value={upcomingTrainingsFilter || "all"}
+        >
+          <option value="all">Все тренировки</option>
+          <option value={1}>Предстоящие тренировки</option>
+          <option value={2}>История тренировок</option>
+        </select>
+
+        <button
+          className="Select-button"
+          onClick={() => handleTrainingFilter()}
+        >
+          Применить фильтр
+        </button>
+      </div>
+
       {myTrainings.length > 0 ? (
         <div className="Training-wrapper">
           <div className="Training-list">
@@ -102,9 +147,13 @@ function MyTrainings({ token }) {
                     Свободно мест: {training.remaining_places} из{" "}
                     {training.max_capacity}
                   </p>
-                  <button onClick={() => handleCancelEnrollment(training.id)}>
-                    Отменить запись
-                  </button>
+                  {new Date(training.start_time) > new Date() ? (
+                    <button onClick={() => handleCancelEnrollment(training.id)}>
+                      Отменить запись
+                    </button>
+                  ) : (
+                    <p>Статус: проведено</p>
+                  )}
                 </div>
               </div>
             ))}

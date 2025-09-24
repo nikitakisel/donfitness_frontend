@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
 import "../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -17,6 +10,7 @@ function AllTrainings({ token }) {
 
   const [selectedTrainingTypeId, setSelectedTrainingTypeId] = useState(0);
   const [selectedCoachId, setSelectedCoachId] = useState(0);
+  const [upcomingTrainingsFilter, setUpcomingTrainingsFilter] = useState(0);
 
   const [allTrainings, setAllTrainings] = useState([]);
   const [residentId, setResidentId] = useState(null);
@@ -119,13 +113,16 @@ function AllTrainings({ token }) {
   const handleTrainingTypeChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedTrainingTypeId(selectedValue === "all" ? 0 : selectedValue);
-    console.log(selectedTrainingTypeId);
   };
 
   const handleCoachChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedCoachId(selectedValue === "all" ? 0 : selectedValue);
-    console.log(selectedCoachId);
+  };
+
+  const handleTrainingFilterChange = (event) => {
+    const selectedValue = event.target.value;
+    setUpcomingTrainingsFilter(selectedValue === "all" ? 0 : selectedValue);
   };
 
   const handleTrainingFilter = async () => {
@@ -136,7 +133,18 @@ function AllTrainings({ token }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setAllTrainings(response.data);
+      var trainingList = response.data;
+      setAllTrainings(
+        upcomingTrainingsFilter == 1
+          ? trainingList.filter(
+              (training) => new Date(training.start_time) > new Date()
+            )
+          : upcomingTrainingsFilter == 2
+            ? trainingList.filter(
+                (training) => new Date(training.start_time) <= new Date()
+              )
+            : trainingList
+      );
     } catch (error) {
       console.error("Error filter trainings:", error);
       alert("Failed to filter trainings. Check the console for details.");
@@ -147,6 +155,15 @@ function AllTrainings({ token }) {
     <div>
       <h2 className="Chapter-title">Все тренировки</h2>
       <div className="Select-wrapper">
+        <select
+          className="Select-combobox"
+          onChange={handleTrainingFilterChange}
+          value={upcomingTrainingsFilter || "all"}
+        >
+          <option value="all">Все тренировки</option>
+          <option value={1}>Предстоящие тренировки</option>
+          <option value={2}>История тренировок</option>
+        </select>
         <select
           className="Select-combobox"
           onChange={handleTrainingTypeChange}
@@ -197,12 +214,16 @@ function AllTrainings({ token }) {
                     Свободно мест: {training.remaining_places} из{" "}
                     {training.max_capacity}
                   </p>
-                  {training.remaining_places > 0 ? (
-                    <button onClick={() => handleEnroll(training.id)}>
-                      Записаться
-                    </button>
+                  {new Date(training.start_time) > new Date() ? (
+                    training.remaining_places > 0 ? (
+                      <button onClick={() => handleEnroll(training.id)}>
+                        Записаться
+                      </button>
+                    ) : (
+                      <p>Увы, все места заняты :(</p>
+                    )
                   ) : (
-                    <p>Увы, все места заняты :(</p>
+                    <p>Статус: проведено</p>
                   )}
                 </div>
               </div>
