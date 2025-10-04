@@ -7,11 +7,11 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import "../../App.css";
+import "../../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
 
-function TrainingsInfo({ token }) {
+function InfoTrainings({ token, handleEditTraining }) {
   const [trainingTypes, setTrainingTypes] = useState([]);
   const [coaches, setCoaches] = useState([]);
 
@@ -23,7 +23,6 @@ function TrainingsInfo({ token }) {
   useEffect(() => {
     const fetchTrainings = async () => {
       try {
-        console.log(API_BASE_URL);
         const response = await axios.get(
           `${API_BASE_URL}/training_sessions/residents/0/0`,
           {
@@ -39,7 +38,7 @@ function TrainingsInfo({ token }) {
 
     const fetchTrainingTypes = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/training_types`, {
+        const response = await axios.get(`${API_BASE_URL}/training_types/all`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTrainingTypes(response.data);
@@ -86,6 +85,10 @@ function TrainingsInfo({ token }) {
     }
   };
 
+  // const handleEditTraining = () => {
+  //   // Заглушка
+  // }
+
   const handleDeleteTraining = async (trainingSessionId) => {
     try {
       await axios.delete(
@@ -123,13 +126,11 @@ function TrainingsInfo({ token }) {
   const handleTrainingTypeChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedTrainingTypeId(selectedValue === "all" ? 0 : selectedValue);
-    console.log(selectedTrainingTypeId);
   };
 
   const handleCoachChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedCoachId(selectedValue === "all" ? 0 : selectedValue);
-    console.log(selectedCoachId);
   };
 
   return (
@@ -180,8 +181,12 @@ function TrainingsInfo({ token }) {
                     <button className="Delete-button" onClick={() => handleDeleteTraining(training.id)}>
                       X
                     </button>
-                    <h3>{training.training_type}</h3>
+                    <button className="Edit-button" onClick={() => handleEditTraining(training.id)}>
+                      Изменить
+                    </button>
+                    
                   </div>
+                  <h3>{training.training_type}</h3>
                   <p>
                     {training.coach_name} {training.coach_surname}
                   </p>
@@ -200,7 +205,7 @@ function TrainingsInfo({ token }) {
                   )}
                   {training.residents.map((resident) => (
                     <div className="Admin-training-title">
-                      <button
+                      <button className="Delete-button"
                         onClick={() =>
                           handleDeleteResidentFromTraining(
                             resident.id,
@@ -228,4 +233,4 @@ function TrainingsInfo({ token }) {
   );
 }
 
-export default TrainingsInfo;
+export default InfoTrainings;

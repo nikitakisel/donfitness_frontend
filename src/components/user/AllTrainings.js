@@ -54,7 +54,7 @@ function AllTrainings({ token }) {
 
     const fetchTrainingTypes = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/training_types`, {
+        const response = await axios.get(`${API_BASE_URL}/training_types/all`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTrainingTypes(response.data);
@@ -216,7 +216,7 @@ function AllTrainings({ token }) {
                   </p>
                   {new Date(training.start_time) > new Date() ? (
                     training.remaining_places > 0 ? (
-                      <button onClick={() => handleEnroll(training.id)}>
+                      <button className="Training-info-button" onClick={() => handleEnroll(training.id)}>
                         Записаться
                       </button>
                     ) : (

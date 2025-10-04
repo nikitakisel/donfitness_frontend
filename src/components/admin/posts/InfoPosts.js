@@ -7,11 +7,11 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import "../../App.css";
+import "../../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
 
-function News({ token }) {
+function InfoPosts({ token, handleEditPost }) {
   const admins = ["administrator"];
   const [username, setUsername] = useState(null);
 
@@ -80,11 +80,20 @@ function News({ token }) {
                   )}
                 </div>
                 <div className="News-info">
-                  {admins.indexOf(username) !== -1 ? (
-                    <button className="Delete-button" onClick={() => handleDeletePost(post.id)}>X</button>
-                  ) : (
-                    <div></div>
-                  )}
+                  <div className="Admin-training-title">
+                    <button
+                      className="Delete-button"
+                      onClick={() => handleDeletePost(post.id)}
+                    >
+                      X
+                    </button>
+                    <button
+                      className="Edit-button"
+                      onClick={() => handleEditPost(post.id)}
+                    >
+                      Изменить
+                    </button>
+                  </div>
                   <h3>{post.post_title}</h3>
                   <p>{post.post_info}</p>
                   <p>
@@ -105,4 +114,4 @@ function News({ token }) {
   );
 }
 
-export default News;
+export default InfoPosts;

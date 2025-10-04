@@ -7,7 +7,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import "../../App.css";
+import "../../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
 

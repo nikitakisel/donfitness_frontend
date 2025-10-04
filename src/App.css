@@ -272,7 +272,7 @@ a:hover {
   padding: initial;
 }
 
-.Training-info button {
+.Training-info-button {
   border: none;
   width: 200px;
   height: 30px;
@@ -343,7 +343,7 @@ a:hover {
   padding: 12px 16px;
   font-size: 16px;
   color: #333;
-  width: 250px;
+  width: 400px;
   cursor: pointer;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
@@ -413,6 +413,42 @@ body.dark .Select-button:hover {
 
 
 
+
+
+
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  min-width: 300px;
+  z-index: 1000;
+  display: block; /* ensure visibility */
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 5px 15px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #333;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+.Dashboard-nav-list li {
+  position: relative;
+  display: inline-block; 
+}
+
+
+
 .Admin-training-list {
   justify-content: center;
 }
@@ -422,9 +458,25 @@ body.dark .Select-button:hover {
   padding-left: 30px;
 }
 
-.Admin-training-item button {
+.Delete-button {
+  border: none;
   width: 30px;
+  height: 30px;
+  font-size: 18px;
+  color: white;
   background-color: #ff0606;
+  border-radius: 7px;
+  margin-right: 10px;
+}
+
+.Edit-button {
+  border: none;
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  color: white;
+  background-color: #0672ff;
+  border-radius: 7px;
   margin-right: 10px;
 }
 
@@ -434,6 +486,7 @@ body.dark .Select-button:hover {
   flex-wrap: nowrap;
   justify-content: left;
   align-items: center;
+  margin-top: 20px;
 }
 
 
@@ -468,17 +521,6 @@ body.dark .Select-button:hover {
   align-items: first baseline;
   padding-left: 60px;
   margin-bottom: 20px;
-}
-
-.News-item button {
-  border: none;
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
-  color: white;
-  border-radius: 7px;
-  background-color: #ff0606;
-  margin-right: 10px;
 }
 
 .News-photo-div {

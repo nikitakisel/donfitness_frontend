@@ -12,7 +12,6 @@ function MyTrainings({ token }) {
   useEffect(() => {
     const fetchMyTrainings = async () => {
       try {
-        console.log(API_BASE_URL);
         const response = await axios.get(
           `${API_BASE_URL}/training_sessions/enrolled`,
           {
@@ -76,7 +75,6 @@ function MyTrainings({ token }) {
 
   const handleTrainingFilter = async () => {
     try {
-      console.log(API_BASE_URL);
       const response = await axios.get(
         `${API_BASE_URL}/training_sessions/enrolled`,
         {
@@ -148,7 +146,7 @@ function MyTrainings({ token }) {
                     {training.max_capacity}
                   </p>
                   {new Date(training.start_time) > new Date() ? (
-                    <button onClick={() => handleCancelEnrollment(training.id)}>
+                    <button className="Training-info-button" onClick={() => handleCancelEnrollment(training.id)}>
                       Отменить запись
                     </button>
                   ) : (
