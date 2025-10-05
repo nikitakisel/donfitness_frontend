@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
 import "../../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -51,9 +44,8 @@ function InfoTrainingTypes({ token, handleEditTrainingType }) {
         <div className="Coach-wrapper">
           <div className="Coach-list">
             {trainingTypes.map((trainingType) => (
-              <div key={trainingType.id} className="Coach-item">
-                {/* <div className="Coach-image"></div> */}
-                <div className="Coach-info">
+              <div key={trainingType.id} className="Training-item Admin-training-item">
+                <div className="Training-info">
                   <div className="Admin-training-title">
                     <button
                       className="Delete-button"

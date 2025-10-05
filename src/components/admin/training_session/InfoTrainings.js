@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
 import "../../../App.css";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -84,10 +77,6 @@ function InfoTrainings({ token, handleEditTraining }) {
       alert("Failed to cancel enrollment. Check the console for details.");
     }
   };
-
-  // const handleEditTraining = () => {
-  //   // Заглушка
-  // }
 
   const handleDeleteTraining = async (trainingSessionId) => {
     try {
