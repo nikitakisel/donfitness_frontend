@@ -28,6 +28,8 @@ import EditTrainingType from "./training_type/EditTrainingType";
 import EditCoach from "./coach/EditCoach";
 import EditPost from "./posts/EditPost";
 
+import ReportPage from "./ReportPage";
+
 const API_BASE_URL = "http://localhost:8000";
 
 function AdminPanel({ token }) {
@@ -87,7 +89,7 @@ function AdminPanel({ token }) {
     setIsReportsDropdownOpen(false);
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/training_sessions/residents/0/0`,
+        `${API_BASE_URL}/training_sessions/residents/0/0/0`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -96,11 +98,11 @@ function AdminPanel({ token }) {
       const trainingsData = 
             upcomingTrainingsFilter == 1
           ? response.data.filter(
-              (training) => new Date(training.start_time) <= new Date()
+              (training) => new Date(training.start_time) > new Date()
             )
           : upcomingTrainingsFilter == 2
             ? response.data.filter(
-                (training) => new Date(training.start_time) > new Date()
+                (training) => new Date(training.start_time) <= new Date()
               )
             : response.data;
 
@@ -269,37 +271,12 @@ function AdminPanel({ token }) {
               </ul>
             )}
           </li>
-
-
-          {/* <li className={activeTab === "trainingsInfo" ? "active" : "Dashboard-nav-list-item"}>
-            <button onClick={() => setActiveTab("trainingsInfo")}>
-              Тренировки
-            </button>
-          </li>
-          <li className={activeTab === "addCoach" ? "active" : ""}>
-            <button onClick={() => setActiveTab("addCoach")}>+ Тренер</button>
-          </li>
-          <li className={activeTab === "addTrainingType" ? "active" : ""}>
-            <button onClick={() => setActiveTab("addTrainingType")}>
-              +Вид тренировки
-            </button>
-          </li>
-          <li className={activeTab === "addTrainingSession" ? "active" : ""}>
-            <button onClick={() => setActiveTab("addTrainingSession")}>
-              +Тренировка
-            </button>
-          </li>
-          <li className={activeTab === "addPost" ? "active" : ""}>
-            <button onClick={() => setActiveTab("addPost")}>+Новость</button>
-          </li> */}
-
-
           <li
             className={activeTab === "reports" ? "active" : ""}
             onMouseEnter={toggleReportsDropdown}
             onMouseLeave={closeReportsDropdown}
           >
-            <button>Отчеты</button>
+            <button>Отчёты</button>
             {isReportsDropdownOpen && (
               <ul className="dropdown-menu">
                 <li>
@@ -309,12 +286,17 @@ function AdminPanel({ token }) {
                 </li>
                 <li>
                   <button onClick={() => saveTrainings(1)}>
-                    Прошедшие тренировки
+                    Предстоящие тренировки
                   </button>
                 </li>
                 <li>
                   <button onClick={() => saveTrainings(2)}>
-                    Предстоящие тренировки
+                    История тренировок
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setActiveTab("reportPage")}>
+                    Прочий отчёт
                   </button>
                 </li>
               </ul>
@@ -337,6 +319,8 @@ function AdminPanel({ token }) {
         {activeTab === "editTrainingType" && <EditTrainingType token={token} trainingTypeId={editSthId} setActiveTab={setActiveTab} />}
         {activeTab === "editCoach" && <EditCoach token={token} coachId={editSthId} setActiveTab={setActiveTab} />}
         {activeTab === "editPost" && <EditPost token={token} postId={editSthId} setActiveTab={setActiveTab} />}
+
+        {activeTab === "reportPage" && <ReportPage token={token} />}
 
       </div>
     </div>

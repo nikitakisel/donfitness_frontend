@@ -69,7 +69,7 @@ function InfoCoaches({ token, handleEditCoach }) {
                     </button>
                   </div>
                   <h3>
-                    {coach.name} {coach.surname}
+                    {coach.surname} {coach.name}
                   </h3>
                   <p>{coach.speciality}</p>
                   <p>{coach.qualification}</p>

@@ -41,7 +41,7 @@ function Coaches({ token }) {
                 <div className="Coach-image"></div>
                 <div className="Coach-info">
                   <h3>
-                    {coach.name} {coach.surname}
+                    {coach.surname} {coach.name}
                   </h3>
                   <p>{coach.speciality}</p>
                   <p>{coach.qualification}</p>

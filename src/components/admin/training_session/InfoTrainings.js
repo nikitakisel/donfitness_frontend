@@ -17,7 +17,7 @@ function InfoTrainings({ token, handleEditTraining }) {
     const fetchTrainings = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/training_sessions/residents/0/0`,
+          `${API_BASE_URL}/training_sessions/residents/0/0/0`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -100,7 +100,7 @@ function InfoTrainings({ token, handleEditTraining }) {
   const handleTrainingFilter = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/training_sessions/residents/${selectedTrainingTypeId}/${selectedCoachId}`,
+        `${API_BASE_URL}/training_sessions/residents/${selectedTrainingTypeId}/${selectedCoachId}/0`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
