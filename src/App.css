@@ -541,3 +541,14 @@ body.dark .Select-button:hover {
   height: 400px;
   object-fit: cover;
 }
+
+
+
+
+
+.Report-wrapper {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

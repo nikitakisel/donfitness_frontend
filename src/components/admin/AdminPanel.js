@@ -28,7 +28,8 @@ import EditTrainingType from "./training_type/EditTrainingType";
 import EditCoach from "./coach/EditCoach";
 import EditPost from "./posts/EditPost";
 
-import ReportPage from "./ReportPage";
+import ReportPage from "./reports/ReportPage";
+import TrainingReportGenerator from "./reports/TrainingReportGenerator";
 
 const API_BASE_URL = "http://localhost:8000";
 
@@ -36,23 +37,45 @@ function AdminPanel({ token }) {
   const [activeTab, setActiveTab] = useState("infoTrainings");
   const [editSthId, setEditSthId] = useState(0);
 
-  const [isTrainingSessionsDropdownOpen, setIsTrainingSessionsDropdownOpen] = useState(false);
-  const [isTrainingTypesDropdownOpen, setIsTrainingTypesDropdownOpen] = useState(false);
+  const [isTrainingSessionsDropdownOpen, setIsTrainingSessionsDropdownOpen] =
+    useState(false);
+  const [isTrainingTypesDropdownOpen, setIsTrainingTypesDropdownOpen] =
+    useState(false);
   const [isCoachesDropdownOpen, setIsCoachesDropdownOpen] = useState(false);
   const [isNewsDropdownOpen, setIsNewsDropdownOpen] = useState(false);
   const [isReportsDropdownOpen, setIsReportsDropdownOpen] = useState(false);
 
-  const toggleTrainingSessionsDropdown = () => { setIsTrainingSessionsDropdownOpen(true); };
-  const toggleTrainingTypesDropdown = () => { setIsTrainingTypesDropdownOpen(true); };
-  const toggleCoachesDropdown = () => { setIsCoachesDropdownOpen(true); };
-  const toggleNewsDropdown = () => { setIsNewsDropdownOpen(true); };
-  const toggleReportsDropdown = () => { setIsReportsDropdownOpen(true); };
+  const toggleTrainingSessionsDropdown = () => {
+    setIsTrainingSessionsDropdownOpen(true);
+  };
+  const toggleTrainingTypesDropdown = () => {
+    setIsTrainingTypesDropdownOpen(true);
+  };
+  const toggleCoachesDropdown = () => {
+    setIsCoachesDropdownOpen(true);
+  };
+  const toggleNewsDropdown = () => {
+    setIsNewsDropdownOpen(true);
+  };
+  const toggleReportsDropdown = () => {
+    setIsReportsDropdownOpen(true);
+  };
 
-  const closeTrainingSessionsDropdown = () => { setIsTrainingSessionsDropdownOpen(false); };
-  const closeTrainingTypesDropdown = () => { setIsTrainingTypesDropdownOpen(false); };
-  const closeCoachesDropdown = () => { setIsCoachesDropdownOpen(false); };
-  const closeNewsDropdown = () => { setIsNewsDropdownOpen(false); };
-  const closeReportsDropdown = () => { setIsReportsDropdownOpen(false); };
+  const closeTrainingSessionsDropdown = () => {
+    setIsTrainingSessionsDropdownOpen(false);
+  };
+  const closeTrainingTypesDropdown = () => {
+    setIsTrainingTypesDropdownOpen(false);
+  };
+  const closeCoachesDropdown = () => {
+    setIsCoachesDropdownOpen(false);
+  };
+  const closeNewsDropdown = () => {
+    setIsNewsDropdownOpen(false);
+  };
+  const closeReportsDropdown = () => {
+    setIsReportsDropdownOpen(false);
+  };
 
   // Заглушка
   const handleSelection = (reportType) => {
@@ -68,22 +91,22 @@ function AdminPanel({ token }) {
   const handleEditTraining = (trainingId) => {
     setEditSthId(trainingId);
     setActiveTab("editTraining");
-  }
+  };
 
   const handleEditTrainingType = (trainingTypeId) => {
     setEditSthId(trainingTypeId);
     setActiveTab("editTrainingType");
-  }
+  };
 
   const handleEditCoach = (coachId) => {
     setEditSthId(coachId);
     setActiveTab("editCoach");
-  }
+  };
 
   const handleEditPost = (postId) => {
     setEditSthId(postId);
     setActiveTab("editPost");
-  }
+  };
 
   const saveTrainings = async (upcomingTrainingsFilter) => {
     setIsReportsDropdownOpen(false);
@@ -95,8 +118,8 @@ function AdminPanel({ token }) {
         }
       );
 
-      const trainingsData = 
-            upcomingTrainingsFilter == 1
+      const trainingsData =
+        upcomingTrainingsFilter == 1
           ? response.data.filter(
               (training) => new Date(training.start_time) > new Date()
             )
@@ -180,6 +203,25 @@ function AdminPanel({ token }) {
     }
   };
 
+  const saveTrainingTypesReport = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/training_types/statistics`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const trainingTypesStatistics = response.data;
+
+      
+
+      alert("Отчет успешно сохранен в Excel-файл с диаграммами!");
+    } catch (error) {
+      console.error("Ошибка при сохранении отчета в Excel:", error);
+      alert("Ошибка при сохранении отчета в Excel. Подробности в консоли.");
+    }
+  };
+
   return (
     <div className="Dashboard">
       <nav className="Dashboard-nav">
@@ -192,7 +234,9 @@ function AdminPanel({ token }) {
             <button>Тренировки</button>
             {isTrainingSessionsDropdownOpen && (
               <ul className="dropdown-menu">
-                <li className={activeTab === "addTrainingSession" ? "active" : ""}>
+                <li
+                  className={activeTab === "addTrainingSession" ? "active" : ""}
+                >
                   <button onClick={() => setActiveTab("addTrainingSession")}>
                     Добавить тренировку
                   </button>
@@ -219,7 +263,9 @@ function AdminPanel({ token }) {
                     Добавить вид тренировки
                   </button>
                 </li>
-                <li className={activeTab === "infoTrainingTypes" ? "active" : ""}>
+                <li
+                  className={activeTab === "infoTrainingTypes" ? "active" : ""}
+                >
                   <button onClick={() => setActiveTab("infoTrainingTypes")}>
                     Изменить вид тренировки
                   </button>
@@ -295,6 +341,11 @@ function AdminPanel({ token }) {
                   </button>
                 </li>
                 <li>
+                  <button onClick={() => setActiveTab("trainingReportGenerator")}>
+                    Стат. видов тренировок
+                  </button>
+                </li>
+                <li>
                   <button onClick={() => setActiveTab("reportPage")}>
                     Прочий отчёт
                   </button>
@@ -304,24 +355,64 @@ function AdminPanel({ token }) {
           </li>
         </ul>
       </nav>
-      <div className="Dashboard-content">      
-        {activeTab === "addTrainingSession" && (<AddTrainingSession token={token} />)}
+      <div className="Dashboard-content">
+        {activeTab === "addTrainingSession" && (
+          <AddTrainingSession token={token} />
+        )}
         {activeTab === "addTrainingType" && <AddTrainingType token={token} />}
         {activeTab === "addCoach" && <AddCoach token={token} />}
         {activeTab === "addPost" && <AddPost token={token} />}
 
-        {activeTab === "infoTrainings" && <InfoTrainings token={token} handleEditTraining={handleEditTraining} />}
-        {activeTab === "infoCoaches" && <InfoCoaches token={token} handleEditCoach={handleEditCoach} />}
-        {activeTab === "infoPosts" && <InfoPosts token={token} handleEditPost={handleEditPost} />}
-        {activeTab === "infoTrainingTypes" && <InfoTrainingTypes token={token} handleEditTrainingType={handleEditTrainingType} />}
+        {activeTab === "infoTrainings" && (
+          <InfoTrainings
+            token={token}
+            handleEditTraining={handleEditTraining}
+          />
+        )}
+        {activeTab === "infoCoaches" && (
+          <InfoCoaches token={token} handleEditCoach={handleEditCoach} />
+        )}
+        {activeTab === "infoPosts" && (
+          <InfoPosts token={token} handleEditPost={handleEditPost} />
+        )}
+        {activeTab === "infoTrainingTypes" && (
+          <InfoTrainingTypes
+            token={token}
+            handleEditTrainingType={handleEditTrainingType}
+          />
+        )}
 
-        {activeTab === "editTraining" && <EditTraining token={token} trainingId={editSthId} setActiveTab={setActiveTab} />}
-        {activeTab === "editTrainingType" && <EditTrainingType token={token} trainingTypeId={editSthId} setActiveTab={setActiveTab} />}
-        {activeTab === "editCoach" && <EditCoach token={token} coachId={editSthId} setActiveTab={setActiveTab} />}
-        {activeTab === "editPost" && <EditPost token={token} postId={editSthId} setActiveTab={setActiveTab} />}
+        {activeTab === "editTraining" && (
+          <EditTraining
+            token={token}
+            trainingId={editSthId}
+            setActiveTab={setActiveTab}
+          />
+        )}
+        {activeTab === "editTrainingType" && (
+          <EditTrainingType
+            token={token}
+            trainingTypeId={editSthId}
+            setActiveTab={setActiveTab}
+          />
+        )}
+        {activeTab === "editCoach" && (
+          <EditCoach
+            token={token}
+            coachId={editSthId}
+            setActiveTab={setActiveTab}
+          />
+        )}
+        {activeTab === "editPost" && (
+          <EditPost
+            token={token}
+            postId={editSthId}
+            setActiveTab={setActiveTab}
+          />
+        )}
 
         {activeTab === "reportPage" && <ReportPage token={token} />}
-
+        {activeTab === "trainingReportGenerator" && <TrainingReportGenerator token={token} />}
       </div>
     </div>
   );
