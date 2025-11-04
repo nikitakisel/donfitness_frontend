@@ -15,6 +15,7 @@ import AllTrainings from "./AllTrainings";
 import Coaches from "./Coaches";
 import MyTrainings from "./MyTrainings";
 import MyProfile from "./MyProfile";
+import UserGuide from "./UserGuide";
 
 function Dashboard({ token }) {
   const [activeTab, setActiveTab] = useState("news");
@@ -46,6 +47,11 @@ function Dashboard({ token }) {
               Мой профиль
             </button>
           </li>
+          <li className={activeTab === "userGuide" ? "active" : ""}>
+            <button onClick={() => setActiveTab("userGuide")}>
+              ?
+            </button>
+          </li>
         </ul>
       </nav>
       <div className="Dashboard-content">
@@ -54,6 +60,7 @@ function Dashboard({ token }) {
         {activeTab === "allTrainings" && <AllTrainings token={token} />}
         {activeTab === "coaches" && <Coaches token={token} />}
         {activeTab === "myProfile" && <MyProfile token={token} />}
+        {activeTab === "userGuide" && <UserGuide />}
       </div>
     </div>
   );

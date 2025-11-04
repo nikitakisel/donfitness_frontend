@@ -182,7 +182,7 @@ a:hover {
 }
 
 .Dashboard-nav-list {
-    width: 50%;
+    width: 60%;
     list-style-type: none;
     display: flex;
     flex-direction: row;
