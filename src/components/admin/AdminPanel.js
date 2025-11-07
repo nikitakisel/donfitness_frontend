@@ -16,16 +16,19 @@ import { saveAs } from "file-saver";
 import AddTrainingSession from "./training_session/AddTrainingSession";
 import AddTrainingType from "./training_type/AddTrainingType";
 import AddCoach from "./coach/AddCoach";
+import AddAchievement from "./achievement/AddAchievement";
 import AddPost from "./posts/AddPost";
 
 import InfoTrainings from "./training_session/InfoTrainings";
 import InfoTrainingTypes from "./training_type/InfoTrainingTypes";
 import InfoCoaches from "./coach/InfoCoaches";
+import InfoAchievements from "./achievement/InfoAchievements";
 import InfoPosts from "./posts/InfoPosts";
 
 import EditTraining from "./training_session/EditTraining";
 import EditTrainingType from "./training_type/EditTrainingType";
 import EditCoach from "./coach/EditCoach";
+import EditAchievement from "./achievement/EditAchievement";
 import EditPost from "./posts/EditPost";
 
 import ReportPage from "./reports/ReportPage";
@@ -42,6 +45,8 @@ function AdminPanel({ token }) {
   const [isTrainingTypesDropdownOpen, setIsTrainingTypesDropdownOpen] =
     useState(false);
   const [isCoachesDropdownOpen, setIsCoachesDropdownOpen] = useState(false);
+  const [isAchievementsDropdownOpen, setIsAchievementDropdownOpen] =
+      useState(false);
   const [isNewsDropdownOpen, setIsNewsDropdownOpen] = useState(false);
   const [isReportsDropdownOpen, setIsReportsDropdownOpen] = useState(false);
 
@@ -53,6 +58,9 @@ function AdminPanel({ token }) {
   };
   const toggleCoachesDropdown = () => {
     setIsCoachesDropdownOpen(true);
+  };
+  const toggleAchievementsDropdown = () => {
+    setIsAchievementDropdownOpen(true);
   };
   const toggleNewsDropdown = () => {
     setIsNewsDropdownOpen(true);
@@ -70,22 +78,15 @@ function AdminPanel({ token }) {
   const closeCoachesDropdown = () => {
     setIsCoachesDropdownOpen(false);
   };
+  const closeAchievementsDropdown = () => {
+    setIsAchievementDropdownOpen(false);
+  };
   const closeNewsDropdown = () => {
     setIsNewsDropdownOpen(false);
   };
   const closeReportsDropdown = () => {
     setIsReportsDropdownOpen(false);
   };
-
-  // Заглушка
-  const handleSelection = (reportType) => {
-    setIsTrainingSessionsDropdownOpen(false);
-    setIsTrainingTypesDropdownOpen(false);
-    setIsCoachesDropdownOpen(false);
-    setIsNewsDropdownOpen(false);
-    setIsReportsDropdownOpen(false);
-  };
-  //
 
   // Логика для изменения записей
   const handleEditTraining = (trainingId) => {
@@ -101,6 +102,11 @@ function AdminPanel({ token }) {
   const handleEditCoach = (coachId) => {
     setEditSthId(coachId);
     setActiveTab("editCoach");
+  };
+
+  const handleEditAchievement = (achievementId) => {
+    setEditSthId(achievementId);
+    setActiveTab("editAchievement");
   };
 
   const handleEditPost = (postId) => {
@@ -203,25 +209,6 @@ function AdminPanel({ token }) {
     }
   };
 
-  const saveTrainingTypesReport = async () => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/training_types/statistics`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const trainingTypesStatistics = response.data;
-
-      
-
-      alert("Отчет успешно сохранен в Excel-файл с диаграммами!");
-    } catch (error) {
-      console.error("Ошибка при сохранении отчета в Excel:", error);
-      alert("Ошибка при сохранении отчета в Excel. Подробности в консоли.");
-    }
-  };
-
   return (
     <div className="Dashboard">
       <nav className="Dashboard-nav">
@@ -231,7 +218,7 @@ function AdminPanel({ token }) {
             onMouseEnter={toggleTrainingSessionsDropdown}
             onMouseLeave={closeTrainingSessionsDropdown}
           >
-            <button>Тренировки</button>
+            <button>Учёт тренировок</button>
             {isTrainingSessionsDropdownOpen && (
               <ul className="dropdown-menu">
                 <li
@@ -255,7 +242,7 @@ function AdminPanel({ token }) {
             onMouseEnter={toggleTrainingTypesDropdown}
             onMouseLeave={closeTrainingTypesDropdown}
           >
-            <button>Виды тренировок</button>
+            <button>Учёт видов тренировок</button>
             {isTrainingTypesDropdownOpen && (
               <ul className="dropdown-menu">
                 <li className={activeTab === "addTrainingType" ? "active" : ""}>
@@ -279,7 +266,7 @@ function AdminPanel({ token }) {
             onMouseEnter={toggleCoachesDropdown}
             onMouseLeave={closeCoachesDropdown}
           >
-            <button>Тренеры</button>
+            <button>Учёт тренеров</button>
             {isCoachesDropdownOpen && (
               <ul className="dropdown-menu">
                 <li className={activeTab === "addCoach" ? "active" : ""}>
@@ -297,11 +284,33 @@ function AdminPanel({ token }) {
           </li>
 
           <li
+            className={activeTab === "achievements" ? "active" : ""}
+            onMouseEnter={toggleAchievementsDropdown}
+            onMouseLeave={closeAchievementsDropdown}
+          >
+            <button>Учёт достижений</button>
+            {isAchievementsDropdownOpen && (
+              <ul className="dropdown-menu">
+                <li className={activeTab === "addAchievement" ? "active" : ""}>
+                  <button onClick={() => setActiveTab("addAchievement")}>
+                    Добавить достижение
+                  </button>
+                </li>
+                <li className={activeTab === "infoAchievements" ? "active" : ""}>
+                  <button onClick={() => setActiveTab("infoAchievements")}>
+                    Изменить достижение
+                  </button>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li
             className={activeTab === "trainingTypes" ? "active" : ""}
             onMouseEnter={toggleNewsDropdown}
             onMouseLeave={closeNewsDropdown}
           >
-            <button>Новости</button>
+            <button>Учёт новостей</button>
             {isNewsDropdownOpen && (
               <ul className="dropdown-menu">
                 <li className={activeTab === "addPost" ? "active" : ""}>
@@ -361,6 +370,7 @@ function AdminPanel({ token }) {
         )}
         {activeTab === "addTrainingType" && <AddTrainingType token={token} />}
         {activeTab === "addCoach" && <AddCoach token={token} />}
+        {activeTab === "addAchievement" && <AddAchievement token={token} />}
         {activeTab === "addPost" && <AddPost token={token} />}
 
         {activeTab === "infoTrainings" && (
@@ -371,6 +381,9 @@ function AdminPanel({ token }) {
         )}
         {activeTab === "infoCoaches" && (
           <InfoCoaches token={token} handleEditCoach={handleEditCoach} />
+        )}
+        {activeTab === "infoAchievements" && (
+          <InfoAchievements token={token} handleEditAchievement={handleEditAchievement} />
         )}
         {activeTab === "infoPosts" && (
           <InfoPosts token={token} handleEditPost={handleEditPost} />
@@ -400,6 +413,13 @@ function AdminPanel({ token }) {
           <EditCoach
             token={token}
             coachId={editSthId}
+            setActiveTab={setActiveTab}
+          />
+        )}
+        {activeTab === "editAchievement" && (
+          <EditAchievement
+            token={token}
+            achievementId={editSthId}
             setActiveTab={setActiveTab}
           />
         )}

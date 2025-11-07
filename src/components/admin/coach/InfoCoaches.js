@@ -52,7 +52,7 @@ function InfoCoaches({ token, handleEditCoach }) {
           <div className="Coach-list">
             {coaches.map((coach) => (
               <div key={coach.id} className="Coach-item">
-                <div className="Coach-image"></div>
+                <div className="Coach-image Coach-img"></div>
                 <div className="Coach-info">
                   <div className="Admin-training-title">
                     <button

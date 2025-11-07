@@ -182,7 +182,7 @@ a:hover {
 }
 
 .Dashboard-nav-list {
-    width: 60%;
+    width: 70%;
     list-style-type: none;
     display: flex;
     flex-direction: row;
@@ -310,13 +310,24 @@ a:hover {
 }
 
 .Coach-image {
-  background-image: url('./img/unknown_photo.png'); 
   background-size: cover; 
   background-repeat: no-repeat;
   width: 100px;
   height: 100px;
   margin-left: 20px;
   margin-right: 35px;
+}
+
+.Coach-img {
+  background-image: url('./img/unknown_photo.png'); 
+}
+
+.Achievement-img {
+  background-image: url('./img/medal.png'); 
+}
+
+.Subscription-img {
+  background-image: url('./img/subscription.png'); 
 }
 
 .Coach-info {
